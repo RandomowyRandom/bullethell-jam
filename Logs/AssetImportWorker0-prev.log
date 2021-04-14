@@ -1,0 +1,99 @@
+Using pre-set license
+Built from '2021.1/staging' branch; Version is '2021.1.3f1 (4bef613afd59) revision 4976481'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Home; OS build 19042.867; Version 2009; 64bit' Language: 'en' Physical Memory: 8143 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2021.1.3f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/Dominik/Documents/UnityProjects/Dungeon Generation Prototype
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+2194
+Successfully changed project path to: C:/Users/Dominik/Documents/UnityProjects/Dungeon Generation Prototype
+C:/Users/Dominik/Documents/UnityProjects/Dungeon Generation Prototype
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 125.03 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.1.3f1 (4bef613afd59)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.1.3f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/Dominik/Documents/UnityProjects/Dungeon Generation Prototype/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Radeon RX 560 Series (ID=0x67ff)
+    Vendor:   ATI
+    VRAM:     4075 MB
+    Driver:   27.20.14501.28009
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.1.3f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.1.3f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.1.3f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56136
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.1.3f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.001773 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 179.11 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.111 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.001711 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 67.84 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.366 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 0.87 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1844 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 87.2 MB.
+System memory in use after: 87.3 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 2307.
+Total: 5.088600 ms (FindLiveObjects: 0.314500 ms CreateObjectMapping: 0.128700 ms MarkObjects: 4.548200 ms  DeleteObjects: 0.095500 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Level design/Rooms/penis_room.asset
+  artifactKey: Guid(00d2bfce738468645a493de7f25e94e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Level design/Rooms/penis_room.asset using Guid(00d2bfce738468645a493de7f25e94e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa4bae932e2bd1a24d6d5c26c9b1a1c3') in 0.038128 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 223.380269 seconds.
+  path: Assets/door.prefab
+  artifactKey: Guid(3d4414395d7bc2548bd663c7ced0c880) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/door.prefab using Guid(3d4414395d7bc2548bd663c7ced0c880) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd37533cdb6c4565656dc865b55b0570') in 0.160110 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 69.854434 seconds.
+  path: Assets/Level design/Rooms/funny_room.asset
+  artifactKey: Guid(b8103c601ee14e640911c28ca828feed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Level design/Rooms/funny_room.asset using Guid(b8103c601ee14e640911c28ca828feed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb67168c299198791f54de0a5ba4b570') in 0.007536 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 28.217507 seconds.
+  path: Assets/Level design/Entities/SampleEntity.prefab
+  artifactKey: Guid(f35758bedc8c9a34fa968f8cfc393180) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Level design/Entities/SampleEntity.prefab using Guid(f35758bedc8c9a34fa968f8cfc393180) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd098486975a1ed06fa2e7e853b3a26d2') in 0.031845 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 571.062839 seconds.
+  path: Assets/Scripts/Level design/RoomData.cs
+  artifactKey: Guid(acc0eafccb98b8c4c9da2b1232c92e71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Level design/RoomData.cs using Guid(acc0eafccb98b8c4c9da2b1232c92e71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4449ed850d5ea62709c40123e714583') in 0.007235 seconds 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
