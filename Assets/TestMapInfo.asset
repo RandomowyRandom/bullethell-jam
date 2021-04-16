@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c310fc22cb784a57bf7f7257014d2790, type: 3}
   m_Name: TestMapInfo
   m_EditorClassIdentifier: 
-  _mainPathsNumber: 3
-  _minCellInMainPath: 7
-  _maxCellInMainPath: 10
-  _additionalPathsNumber: 5
+  _mainPathsNumber: 2
+  _minCellInMainPath: 4
+  _maxCellInMainPath: 6
+  _additionalPathsNumber: 2
   _minCellInAdditionalPath: 3
   _maxCellInAdditionalPath: 4

@@ -17,7 +17,7 @@ public static class Extensions
         }  
     }
     
-    public static T RandomElement<T>(this IList<T> list)
+    public static T GetRandomElement<T>(this IList<T> list)
     {
         return list[rng.Next(list.Count)];
     }

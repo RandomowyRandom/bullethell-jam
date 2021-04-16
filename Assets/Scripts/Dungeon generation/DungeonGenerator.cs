@@ -1,85 +1,184 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    [SerializeField] private Tilemap _drawTilemap;
-    [SerializeField] private TileBase _roomTile;
-    [SerializeField] private TileBase _startRoomTile;
-    [SerializeField] private TileBase _bossTile;
-    [SerializeField] private TileBase _lootTile;
-    [SerializeField] private GameObject _door;
+    [SerializeField] private List<RoomData> _roomLayouts;
+    [SerializeField] private List<RoomData> _lootRoomLayouts;
+    [SerializeField] private List<RoomData> _bossRoomLayouts;
     [SerializeField] private MapInfo _mapInfo;
+    [SerializeField] private EntitySpawner _entitySpawner;
+    [SerializeField] private Tilemap _drawTilemap;
+    [SerializeField] private RoomData _border;
     private DungeonMap _dungeonMap;
-    
+
     private void Start()
     {
         _dungeonMap = new DungeonMap(_mapInfo);
-        ProcessMap();
+        ProcessMap(_dungeonMap);
     }
 
-    private void Update()
+    private void ProcessMap(DungeonMap dungeonMap)
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        for (var i = 0; i < 30; i++)
         {
-            _drawTilemap.ClearAllTiles();
-            
-            _dungeonMap = new DungeonMap(_mapInfo);
-            ProcessMap();
-        }
-    }
-
-    private void ProcessMap()
-    {
-        // put down map
-
-        for (int i = 0; i < 30; i++)
-        {
-            for (int j = 0; j < 30; j++)
+            for (var j = 0; j < 30; j++)
             {
-                foreach (var roomDirection in _dungeonMap.Map[i, j].RoomDirections)
+                if (dungeonMap.Map[i, j].RoomType != RoomType.None)
                 {
-                    Instantiate(_door, new Vector2(i, j) + GetDoorPosition(roomDirection), Quaternion.identity);
-                }
-                
-                switch (_dungeonMap.Map[i, j].RoomType)
-                {
-                    case RoomType.None:
-                        break;
-                    case RoomType.Simple:
-                        _drawTilemap.SetTile(new Vector3Int(i, j, 0), _roomTile);
-                        break;
-                    case RoomType.Start:
-                        _drawTilemap.SetTile(new Vector3Int(i, j, 0), _startRoomTile);
-                        break;
-                    case RoomType.Loot:
-                        _drawTilemap.SetTile(new Vector3Int(i, j, 0), _lootTile);
-                        break;
-                    case RoomType.Boss:
-                        _drawTilemap.SetTile(new Vector3Int(i, j, 0), _bossTile);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    var cell = dungeonMap.Map[i, j];
+                    
+                    // get random room and spawn it
+                    var room = GetRandomRoomAtDirection(cell.RoomDirections, dungeonMap.Map[i, j].RoomType);
+                    SpawnRoom(GetRoomPosition(i, j), room);
+
+                    // spawn borders
+                    var borderPosition = GetBorderPosition(i, j);
+                    SpawnRoomBorder(GetBorderPosition(i, j));
+                    
+                    // create doors
+                    foreach (var cellRoomDirection in cell.RoomDirections)
+                    {
+                        MakeHoleInRoom(cellRoomDirection, borderPosition);
+                        // TODO: instantiate some door prefab
+                    }
+                    
+                    // instantiate entity spawners
+                    foreach (var entity in room.Entities)
+                    {
+                        InstantiateEntitySpawner(entity, new Vector2(borderPosition.x, borderPosition.y));
+                    }
                 }
             }
         }
     }
 
-    private Vector2 GetDoorPosition(Direction direction)
+    private Vector3Int GetRoomPosition(int i, int j)
+    {
+        return new Vector3Int(i * 18, j * 10, 0);
+    }
+
+    private Vector3Int GetBorderPosition(int i, int j)
+    {
+        return new Vector3Int(i * 18 - 1, j * 10 - 1, 0);
+    }
+    
+    private void SpawnRoom(Vector3Int origin, RoomData room)
+    {
+        var roomLayout = Get2DArray(room.LevelTilemap, 16, 8);
+
+        for (int x = 0; x < 16; x++)
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                _drawTilemap.SetTile(new Vector3Int(x + origin.x, y + origin.y, 0), roomLayout[x, y]);
+            }
+        }
+    }
+
+    private void SpawnRoomBorder(Vector3Int origin)
+    {
+        var roomBorder = Get2DArray(_border.LevelTilemap, 18, 10);
+
+        for (int x = 0; x < 18; x++)
+        {
+            for (int y = 0; y < 10; y++)
+            {
+                if(roomBorder[x, y] != null)
+                    _drawTilemap.SetTile(new Vector3Int(x + origin.x, y + origin.y, 0), roomBorder[x, y]);
+            }
+        }
+    }
+    
+    private RoomData GetRandomRoomAtDirection(List<Direction> directions, RoomType roomType)
+    {
+        var supportedRooms = new List<RoomData>();
+
+        switch (roomType)
+        {
+            case RoomType.Loot:
+                foreach (var layout in _lootRoomLayouts)
+                {
+                    var firstNotSecond = directions.Except(layout.OpenRoomDoors).ToList();
+                    var secondNotFirst = layout.OpenRoomDoors.Except(directions).ToList();
+            
+                    if (!firstNotSecond.Any() && !secondNotFirst.Any())
+                        supportedRooms.Add(layout);
+                }
+                break;
+            
+            case RoomType.Boss:
+                foreach (var layout in _bossRoomLayouts)
+                {
+                    var firstNotSecond = directions.Except(layout.OpenRoomDoors).ToList();
+                    var secondNotFirst = layout.OpenRoomDoors.Except(directions).ToList();
+            
+                    if (!firstNotSecond.Any() && !secondNotFirst.Any())
+                        supportedRooms.Add(layout);
+                }
+                break;
+            
+            default:
+                foreach (var layout in _roomLayouts)
+                {
+                    var firstNotSecond = directions.Except(layout.OpenRoomDoors).ToList();
+                    var secondNotFirst = layout.OpenRoomDoors.Except(directions).ToList();
+            
+                    if (!firstNotSecond.Any() && !secondNotFirst.Any())
+                        supportedRooms.Add(layout);
+                }
+                break;
+        }
+        
+        return supportedRooms.GetRandomElement();
+    }
+    
+    private T[,] Get2DArray<T>(T[] input, int height, int width)
+    {
+        var output = new T[height, width];
+        
+        for (var i = 0; i < height; i++)
+        {
+            for (var j = 0; j < width; j++)
+            {
+                output[i, j] = input[i * width + j];
+            }
+        }
+        return output;
+    }
+
+    private void InstantiateEntitySpawner(LevelEntity levelEntity, Vector2 origin)
+    {
+        var position = levelEntity.Position + origin;
+        
+        var spawner = Instantiate(_entitySpawner, position, quaternion.identity);
+        spawner.EntityID = levelEntity.EntityID;
+    }
+    
+    private void MakeHoleInRoom(Direction direction, Vector3Int roomOrigin)
     {
         switch (direction)
         {
             case Direction.Top:
-                return new Vector2(.5f, 1f);
+                _drawTilemap.SetTile(new Vector3Int(roomOrigin.x + 8, roomOrigin.y + 9, 0), null);
+                _drawTilemap.SetTile(new Vector3Int(roomOrigin.x + 9, roomOrigin.y + 9, 0), null);
+                break;
             case Direction.Bottom:
-                return new Vector2(.5f, 0f);
+                _drawTilemap.SetTile(new Vector3Int(roomOrigin.x + 8, roomOrigin.y, 0), null);
+                _drawTilemap.SetTile(new Vector3Int(roomOrigin.x + 9, roomOrigin.y, 0), null);
+                break;
             case Direction.Left:
-                return new Vector2(0f, .5f);
+                _drawTilemap.SetTile(new Vector3Int(roomOrigin.x, roomOrigin.y + 4, 0), null);
+                _drawTilemap.SetTile(new Vector3Int(roomOrigin.x, roomOrigin.y + 5, 0), null);
+                break;
             case Direction.Right:
-                return new Vector2(1f, .5f);
-            default:
-                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+                _drawTilemap.SetTile(new Vector3Int(roomOrigin.x + 17, roomOrigin.y + 4, 0), null);
+                _drawTilemap.SetTile(new Vector3Int(roomOrigin.x + 17, roomOrigin.y + 5, 0), null);
+                break;
         }
     }
 }

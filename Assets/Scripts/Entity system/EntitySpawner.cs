@@ -4,11 +4,15 @@ public class EntitySpawner : MonoBehaviour
 {
     [SerializeField] private int _entityID;
 
-    public int EntityID => _entityID;
-    
+    public int EntityID
+    {
+        get => _entityID;
+        set => _entityID = value;
+    }
+
     public void Spawn()
     {
-        //Instantiate(entitydb.getentity, transform.position, Quaternion.identity);
+        Instantiate(EntityDatabase.Instance.GetEntity(_entityID), transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

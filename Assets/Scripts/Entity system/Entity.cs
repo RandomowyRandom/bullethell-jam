@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
@@ -8,13 +9,25 @@ public abstract class Entity : MonoBehaviour
 
     public abstract int EntityID { get; }
 
-    private void Start()
+    private void Awake()
     {
         // health init
         _health = _maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        var bullet = other.gameObject.GetComponent<PlayerBullet>();
+
+        if (bullet != null) 
+        {
+            TakeDamage(1); //TODO: replace with actual damage
+        }
+        
+        OnCollision(other);
+    }
+
+    protected virtual void TakeDamage(float damage)
     {
         _health -= damage;
 
@@ -26,6 +39,11 @@ public abstract class Entity : MonoBehaviour
     }
 
     protected virtual void OnDeath()
+    {
+        
+    }
+
+    protected virtual void OnCollision(Collision2D other)
     {
         
     }

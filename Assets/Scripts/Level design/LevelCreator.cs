@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,6 +7,7 @@ public class LevelCreator : MonoBehaviour
 {
     [Header("Room data")] 
     [SerializeField] private string _roomName;
+    [SerializeField] private RoomType _roomType;
     [SerializeField] private RoomData _roomToSave;
     [SerializeField] private List<Direction> _openRooms;
 
@@ -16,9 +18,10 @@ public class LevelCreator : MonoBehaviour
     [ContextMenu("Save layout")]
     private void SaveRoom()
     {
-        // save name and open doors
+        // save name, open doors and room type
         _roomToSave.OpenRoomDoors = new List<Direction>(_openRooms);
         _roomToSave.RoomName = _roomName;
+        _roomToSave.RoomType = _roomType;
         
         // save tilemap data
         var tiles = new TileBase[16, 8];
@@ -31,7 +34,7 @@ public class LevelCreator : MonoBehaviour
             }
         }
 
-        _roomToSave.LevelTilemap = tiles;
+        _roomToSave.LevelTilemap = Get1DArray(tiles);
 
         var entities = new List<LevelEntity>();
         
@@ -46,4 +49,5 @@ public class LevelCreator : MonoBehaviour
 
         _roomToSave.Entities = new List<LevelEntity>(entities);
     }
+    private T[] Get1DArray<T>(T[,] input) => input.Cast<T>().ToArray();
 }
