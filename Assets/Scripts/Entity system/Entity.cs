@@ -3,6 +3,8 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
+    public static event Action<Entity> OnEntityDied;
+    
     [SerializeField] private string _entityName;
     [SerializeField] private float _maxHealth;
     private float _health;
@@ -40,7 +42,7 @@ public abstract class Entity : MonoBehaviour
 
     protected virtual void OnDeath()
     {
-        
+        OnEntityDied?.Invoke(this);
     }
 
     protected virtual void OnCollision(Collision2D other)

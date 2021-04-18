@@ -15,9 +15,9 @@ MonoBehaviour:
   _roomName: loot_simple_L
   _roomType: 3
   _entities:
-  - _entityID: 1
+  - _entityID: 0
     _position: {x: 14.5, y: 6.5}
-  - _entityID: 1
+  - _entityID: 0
     _position: {x: 14.5, y: 3.5}
   _openRoomDoors: 02000000
   _levelTilemap:

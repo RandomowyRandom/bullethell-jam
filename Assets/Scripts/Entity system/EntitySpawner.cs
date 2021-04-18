@@ -10,9 +10,9 @@ public class EntitySpawner : MonoBehaviour
         set => _entityID = value;
     }
 
-    public void Spawn()
+    public void Spawn(out Entity entity)
     {
-        Instantiate(EntityDatabase.Instance.GetEntity(_entityID), transform.position, Quaternion.identity);
+        entity = Instantiate(EntityDatabase.Instance.GetEntity(_entityID), transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

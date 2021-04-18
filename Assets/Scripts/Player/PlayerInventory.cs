@@ -5,9 +5,8 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public static event Action<PlayerInventory> OnItemsInInventoryChanged;
-    public static event Action<PlayerInventory> OnKetamineAmountChanged;
-    public static event Action<PlayerInventory> OnVitaminAmountChanged;
-    
+    public static event Action<PlayerInventory, PickupType> OnConsumableAmountChanged;
+
     private List<Item> _items = new List<Item>();
     private int _ketamineAmount;
     private int _vitaminAmount;
@@ -25,24 +24,24 @@ public class PlayerInventory : MonoBehaviour
     public void AddKetamine(int amount)
     {
         _ketamineAmount += amount;
-        OnKetamineAmountChanged?.Invoke(this);
+        OnConsumableAmountChanged?.Invoke(this, PickupType.Ketamine);
     }
 
     public void AddVitamin(int amount)
     {
         _vitaminAmount += amount;
-        OnVitaminAmountChanged?.Invoke(this);
+        OnConsumableAmountChanged?.Invoke(this, PickupType.Vitamin);
     }
 
     public void RemoveKetamine(int amount)
     {
         _ketamineAmount -= amount;
-        OnKetamineAmountChanged?.Invoke(this);
+        OnConsumableAmountChanged?.Invoke(this, PickupType.Ketamine);
     }
 
     public void RemoveVitamin(int amount)
     {
         _vitaminAmount -= amount;
-        OnVitaminAmountChanged?.Invoke(this);
+        OnConsumableAmountChanged?.Invoke(this, PickupType.Vitamin);
     }
 }
