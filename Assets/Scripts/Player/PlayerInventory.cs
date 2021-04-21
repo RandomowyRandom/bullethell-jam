@@ -7,17 +7,17 @@ public class PlayerInventory : MonoBehaviour
     public static event Action<PlayerInventory> OnItemsInInventoryChanged;
     public static event Action<PlayerInventory, PickupType> OnConsumableAmountChanged;
 
-    private List<Item> _items = new List<Item>();
+    [SerializeField] private Inventory _inventory;
     private int _ketamineAmount;
     private int _vitaminAmount;
 
-    public List<Item> Items => _items;
+    public List<Item> Items => _inventory.Items;
     public int KetamineAmount => _ketamineAmount;
     public int VitaminAmount => _vitaminAmount;
 
     public void AddItem(Item item)
     {
-        _items.Add(item);
+        _inventory.Items.Add(item);
         OnItemsInInventoryChanged?.Invoke(this);
     }
 

@@ -13,6 +13,8 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if(Vector2.Distance(transform.position, _endPos) < .001f) return;
+
         transform.position = Vector3.Lerp(
             transform.position, 
             new Vector3(_endPos.x, _endPos.y, -10), 

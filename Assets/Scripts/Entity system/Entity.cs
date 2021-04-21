@@ -7,6 +7,7 @@ public abstract class Entity : MonoBehaviour
     
     [SerializeField] private string _entityName;
     [SerializeField] private float _maxHealth;
+    [SerializeField] private ParticleSystem _deathParticles;
     private float _health;
 
     public abstract int EntityID { get; }
@@ -19,13 +20,6 @@ public abstract class Entity : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        var bullet = other.gameObject.GetComponent<PlayerBullet>();
-
-        if (bullet != null) 
-        {
-            TakeDamage(1); //TODO: replace with actual damage
-        }
-        
         OnCollision(other);
     }
 
@@ -36,6 +30,10 @@ public abstract class Entity : MonoBehaviour
         if (_health <= 0)
         {
             OnDeath();
+            
+            if(_deathParticles != null)
+                Instantiate(_deathParticles, transform.position, Quaternion.identity);
+            
             Destroy(gameObject);
         }
     }
@@ -47,6 +45,12 @@ public abstract class Entity : MonoBehaviour
 
     protected virtual void OnCollision(Collision2D other)
     {
-        
+        var bullet = other.gameObject.GetComponent<PlayerBullet>();
+
+        if (bullet != null) 
+        {
+            TakeDamage(bullet.Damage);
+            Destroy(other.gameObject);
+        }
     }
 }

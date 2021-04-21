@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerRoomTeleporter : MonoBehaviour
 {
@@ -43,5 +44,10 @@ public class PlayerRoomTeleporter : MonoBehaviour
         }
         
         return default;
+    }
+
+    private void OnDestroy()
+    {
+        RoomManager.OnCurrentRoomChanged -= TeleportPlayerToRoom;
     }
 }

@@ -9,6 +9,7 @@ public class Stats
     [SerializeField] private float _range;
     [SerializeField] private float _drugTolerance;
     [SerializeField] private float _drugEfficiency;
+    [SerializeField] private float _bulletSpeed;
 
     public float Speed
     {
@@ -44,5 +45,11 @@ public class Stats
     {
         get => _drugEfficiency;
         set => _drugEfficiency = value;
+    }
+
+    public float BulletSpeed
+    {
+        get => _bulletSpeed;
+        set => _bulletSpeed = value;
     }
 }

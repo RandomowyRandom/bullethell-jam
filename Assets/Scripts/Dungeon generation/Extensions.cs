@@ -1,10 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using Random = System.Random;
 
 public static class Extensions
 {
-    private static Random rng = new Random();  
+    private static Random rng = new Random();
 
+    private static Camera _mainCamera;
+    public static Camera MainCamera
+    {
+        get
+        {
+            if (_mainCamera == null)
+                _mainCamera = Camera.main;
+
+            return _mainCamera;
+        }
+    }
+    
     public static void Shuffle<T>(this IList<T> list)  
     {  
         int n = list.Count;  

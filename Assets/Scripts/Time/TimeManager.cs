@@ -18,9 +18,19 @@ namespace BulletHell.Time
             _maxCooldown = maxCooldown;
         }
 
-        public void HandleTimer()
+        public void HandleTimerUnscaled()
         {
             _currentCooldown -= UnityEngine.Time.unscaledDeltaTime;
+            if(_currentCooldown <= 0 && !_done)
+            {
+                OnDone?.Invoke();
+                _done = true;
+            }
+        }
+
+        public void HandleTimerScaled()
+        {
+            _currentCooldown -= UnityEngine.Time.deltaTime;
             if(_currentCooldown <= 0 && !_done)
             {
                 OnDone?.Invoke();

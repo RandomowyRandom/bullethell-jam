@@ -1,9 +1,11 @@
-﻿using System;
+﻿using TMPro;
 using UnityEngine;
 
 public class ItemPedestal : Entity
 {
     [SerializeField] private SpriteRenderer _itemSpriteOnPedestal;
+    [SerializeField] private TextMeshPro _itemName;
+    [SerializeField] private TextMeshPro _itemTooltip;
     private Item _itemOnPedestal;
     
     private int _entityID = 0;
@@ -18,6 +20,11 @@ public class ItemPedestal : Entity
     {
         _itemOnPedestal = item;
         _itemSpriteOnPedestal.sprite = item.ItemSprite;
+        _itemName.SetText(item.name);
+        _itemTooltip.SetText(item.ItemTooltip);
+
+        _itemName.sortingOrder = 20;
+        _itemTooltip.sortingOrder = 20;
     }
 
     protected override void OnCollision(Collision2D other)

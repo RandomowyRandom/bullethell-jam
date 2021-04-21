@@ -1,11 +1,22 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Door : MonoBehaviour
 {
     private Vector2 _doorDestination;
     private bool _isLocked;
+    private RoomManager _roomManager;
+    
+    private RoomManager RoomManager
+    {
+        get
+        {
+            if (_roomManager == null)
+                _roomManager = FindObjectOfType<RoomManager>();
 
+            return _roomManager;
+        }
+    }
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (_isLocked) return;

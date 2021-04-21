@@ -2,34 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RoomManager : MonoBehaviour
 {
     public static event Action<Room, Room> OnCurrentRoomChanged;
+
+    [SerializeField] private List<GameObject> _pickups;
     
-    private static List<Room> _rooms = new List<Room>();
-    private static Room _currentRoom;
+    private List<Room> _rooms = new List<Room>();
+    private Room _currentRoom;
 
     private List<Entity> _currentRoomEntities = new List<Entity>();
 
     private void Start()
     {
-        // sun to events
+        // sub to events
         OnCurrentRoomChanged += OnOnCurrentRoomChanged;
         Entity.OnEntityDied += EntityOnOnEntityDied;
     }
 
-    public static void AddRoom(Room room)
+    public void AddRoom(Room room)
     {
         _rooms.Add(room);
     }
     
-    public static Room GetRoom(Vector2 position)
+    public Room GetRoom(Vector2 position)
     {
         return _rooms.Find(r => r.Position == position);
     }
 
-    public static Room GetCurrentRoom()
+    public Room GetCurrentRoom()
     {
         if (_currentRoom == null)
             _currentRoom = GetRoom(new Vector2(15, 15));
@@ -37,7 +40,7 @@ public class RoomManager : MonoBehaviour
         return _currentRoom;
     }
 
-    public static void SetCurrentRoom(Room room)
+    public void SetCurrentRoom(Room room)
     {
         OnCurrentRoomChanged?.Invoke(room, GetCurrentRoom());
         _currentRoom = room;
@@ -63,6 +66,12 @@ public class RoomManager : MonoBehaviour
             }
         }
     }
+
+    private void SpawnRandomPickup()
+    {
+        var position = (Vector2)(PlayerVitalStats.Instance.transform.position + Random.onUnitSphere);
+        Instantiate(_pickups.GetRandomElement(), position, Quaternion.identity);
+    }
     
     private void EntityOnOnEntityDied(Entity entity)
     {
@@ -74,6 +83,17 @@ public class RoomManager : MonoBehaviour
             {
                 door.SetLock(false);
             }
+
+            if (Random.value < .7f)
+            {
+                SpawnRandomPickup();
+            }
         }
+    }
+
+    private void OnDestroy()
+    {
+        OnCurrentRoomChanged -= OnOnCurrentRoomChanged;
+        Entity.OnEntityDied -= EntityOnOnEntityDied;
     }
 }

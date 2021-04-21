@@ -11,6 +11,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private List<RoomData> _roomLayouts;
     [SerializeField] private List<RoomData> _lootRoomLayouts;
     [SerializeField] private List<RoomData> _bossRoomLayouts;
+    [SerializeField] private List<RoomData> _startRoomLayouts;
     [Header("Tilemaps")]
     [SerializeField] private Tilemap _borderTilemap;
     [SerializeField] private Tilemap _floorTilemap;
@@ -22,6 +23,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private Door _doorPrefab;
     [Header("Depends")]
     [SerializeField] private EntitySpawner _entitySpawner;
+    [SerializeField] private RoomManager _roomManager;
     private DungeonMap _dungeonMap;
 
     private void Start()
@@ -62,14 +64,14 @@ public class DungeonGenerator : MonoBehaviour
                     
                     // add room to RoomManager
                     var room = new Room(new Vector2(i, j), cell.RoomDirections, spawners);
-                    RoomManager.AddRoom(room);
+                    _roomManager.AddRoom(room);
                     
                     // create doors
                     foreach (var cellRoomDirection in cell.RoomDirections)
                     {
                         MakeHoleInRoom(cellRoomDirection, borderPosition);
                         var door = SpawnDoor(cellRoomDirection, borderPosition);
-                        RoomManager.GetRoom(new Vector2(i, j)).Doors.Add(cellRoomDirection, door);
+                        _roomManager.GetRoom(new Vector2(i, j)).Doors.Add(cellRoomDirection, door);
                     }
                 }
             }
@@ -143,6 +145,17 @@ public class DungeonGenerator : MonoBehaviour
             
             case RoomType.Boss:
                 foreach (var layout in _bossRoomLayouts)
+                {
+                    var firstNotSecond = directions.Except(layout.OpenRoomDoors).ToList();
+                    var secondNotFirst = layout.OpenRoomDoors.Except(directions).ToList();
+            
+                    if (!firstNotSecond.Any() && !secondNotFirst.Any())
+                        supportedRooms.Add(layout);
+                }
+                break;
+            
+            case RoomType.Start:
+                foreach (var layout in _startRoomLayouts)
                 {
                     var firstNotSecond = directions.Except(layout.OpenRoomDoors).ToList();
                     var secondNotFirst = layout.OpenRoomDoors.Except(directions).ToList();

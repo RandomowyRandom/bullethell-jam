@@ -4,7 +4,7 @@ public class DamageSource : MonoBehaviour
 {
     [SerializeField] private bool _destroyOnCollision;
     
-    private float _damage;
+    private float _damage = 5;
 
     public float Damage
     {
@@ -12,7 +12,7 @@ public class DamageSource : MonoBehaviour
         set => _damage = value;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         var playerVitals = other.gameObject.GetComponent<PlayerVitalStats>();
 

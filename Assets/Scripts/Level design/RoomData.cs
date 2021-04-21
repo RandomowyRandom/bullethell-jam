@@ -7,17 +7,11 @@ public class RoomData : ScriptableObject
 {
     [Header("This file SHOULD NOT be changed manually, level creator is made for this.")]
     [Space]
-    [SerializeField] private string _roomName;
     [SerializeField] private RoomType _roomType;
     [SerializeField] private List<LevelEntity> _entities = new List<LevelEntity>();
     [SerializeField] private List<Direction> _openRoomDoors = new List<Direction>();
     [SerializeField] private TileBase[] _levelTilemap;
-
-    public string RoomName
-    {
-        get => _roomName;
-        set => _roomName = value;
-    }
+    
     public List<LevelEntity> Entities
     {
         get => _entities;
