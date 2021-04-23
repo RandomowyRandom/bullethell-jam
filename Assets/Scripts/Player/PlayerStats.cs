@@ -26,7 +26,6 @@ public class PlayerStats : MonoBehaviour
             Damage = _baseStats.Damage,
             FireRate = _baseStats.FireRate,
             Range = _baseStats.Range,
-            DrugTolerance = _baseStats.DrugTolerance,
             DrugEfficiency = _baseStats.DrugEfficiency,
             BulletSpeed = _baseStats.BulletSpeed
         };
@@ -38,7 +37,6 @@ public class PlayerStats : MonoBehaviour
             newStats.Damage += item.Stats.Damage;
             newStats.FireRate += item.Stats.FireRate;
             newStats.Range += item.Stats.Range;
-            newStats.DrugTolerance += item.Stats.DrugTolerance;
             newStats.DrugEfficiency += item.Stats.DrugEfficiency;
             newStats.BulletSpeed += item.Stats.BulletSpeed;
         }

@@ -155,7 +155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityName: Spider
-  _maxHealth: 15
+  _isEnemy: 1
+  _maxHealth: 8
   _deathParticles: {fileID: 3563847004644730254, guid: e19742937223c54468c37dccb5734c62, type: 3}
   _inPlayerBullet: {fileID: 2687073263783791899, guid: 4c4eb83d21bed2244b32b09b23167d3e, type: 3}
   _inPlayerBulletUp: {fileID: 2687073263783791899, guid: 4d993a147db077646b07cb659faeb7a3, type: 3}

@@ -16,10 +16,8 @@ MonoBehaviour:
   _entities:
   - _entityID: 1
     _position: {x: 15.51, y: 5.45}
-  - _entityID: 3
+  - _entityID: 1
     _position: {x: 3.5, y: 2.49}
-  - _entityID: 3
-    _position: {x: 13, y: 5.75}
   - _entityID: 3
     _position: {x: 10.75, y: 6.5}
   - _entityID: 2

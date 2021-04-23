@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vitalEffects:
-    _health: 20
+    _health: 25
     _ketamineReduction: 0
     _vitaminReduction: 0
   _particles: {fileID: 8679831562458709976, guid: 2a7361b569f1c4a4d97745bd6030eb39, type: 3}

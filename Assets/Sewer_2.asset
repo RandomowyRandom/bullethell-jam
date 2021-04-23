@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c310fc22cb784a57bf7f7257014d2790, type: 3}
-  m_Name: Serwer_1
+  m_Name: Sewer_2
   m_EditorClassIdentifier: 
   _mainPathsNumber: 2
-  _minCellInMainPath: 4
-  _maxCellInMainPath: 6
-  _additionalPathsNumber: 2
+  _minCellInMainPath: 6
+  _maxCellInMainPath: 7
+  _additionalPathsNumber: 3
   _minCellInAdditionalPath: 3
-  _maxCellInAdditionalPath: 4
+  _maxCellInAdditionalPath: 5

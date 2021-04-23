@@ -18,12 +18,8 @@ MonoBehaviour:
     _position: {x: 9, y: 7}
   - _entityID: 1
     _position: {x: 5.75, y: 5.75}
-  - _entityID: 3
-    _position: {x: 5.71, y: 3.4299998}
   - _entityID: 2
     _position: {x: 9, y: 2.24}
-  - _entityID: 3
-    _position: {x: 12.22, y: 3.49}
   - _entityID: 1
     _position: {x: 12.27, y: 5.73}
   _openRoomDoors: 0000000001000000

@@ -127,7 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityName: Crocodile
-  _maxHealth: 25
+  _isEnemy: 1
+  _maxHealth: 30
   _deathParticles: {fileID: 3563847004644730254, guid: e19742937223c54468c37dccb5734c62, type: 3}
   _inPlayerBullet: {fileID: 8519148951100563239, guid: fb5571c0b7309f04889e9e490568982e, type: 3}
   _spreadBullet: {fileID: -4848173905228168486, guid: 270ba90c920a35e43a218be8ad492b93, type: 3}

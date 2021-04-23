@@ -59,10 +59,13 @@ public class RoomManager : MonoBehaviour
             }
 
             newRoom.EntitySpawners.Clear();
-            
-            foreach (var door in newRoom.Doors.Values)
+
+            if (IsEntity(_currentRoomEntities))
             {
-                door.SetLock(true);
+                foreach (var door in newRoom.Doors.Values)
+                {
+                    door.SetLock(true);
+                }
             }
         }
     }
@@ -77,20 +80,31 @@ public class RoomManager : MonoBehaviour
     {
         _currentRoomEntities.Remove(entity);
 
-        if (!_currentRoomEntities.Any())
+        if (!IsEntity(_currentRoomEntities))
         {
             foreach (var door in GetCurrentRoom().Doors.Values)
             {
                 door.SetLock(false);
             }
 
-            if (Random.value < .7f)
+            if (Random.value < .9f)
             {
                 SpawnRandomPickup();
             }
         }
     }
 
+    private bool IsEntity(List<Entity> entities)
+    {
+        foreach (var entity in entities)
+        {
+            if (entity.IsEnemy)
+                return true;
+        }
+
+        return false;
+    }
+    
     private void OnDestroy()
     {
         OnCurrentRoomChanged -= OnOnCurrentRoomChanged;

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,13 +13,10 @@ public class Homeless : Entity
     [SerializeField] private EnemyBullet _splitBulletRight;
     [FormerlySerializedAs("_inPlayerVelocityOverTimeReverse")] [SerializeField] private EnemyBullet _inPlayerReverse;
     [SerializeField] private EnemyBullet _inPlayerVelocity;
-    //private Rigidbody2D _rigidbody2D;
+    [SerializeField] private AudioClip _deathSound;
             
     private void Start()
     {
-        // get references
-        //_rigidbody2D = GetComponent<Rigidbody2D>();
-                
         StartCoroutine(EntityAIBullets());
     }
         
@@ -47,5 +45,12 @@ public class Homeless : Entity
                 yield return new WaitForSeconds(.2f);
             }
         }
+    }
+
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        AudioSource.PlayClipAtPoint(_deathSound, transform.position);
+        GameObject.Find("BrekText").GetComponent<TextMeshProUGUI>().enabled = true;
     }
 }

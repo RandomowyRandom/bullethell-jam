@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityName: Rat
-  _maxHealth: 15
+  _isEnemy: 1
+  _maxHealth: 12
   _deathParticles: {fileID: 3563847004644730254, guid: e19742937223c54468c37dccb5734c62, type: 3}
   _inPlayerBulletSplit: {fileID: -4848173905228168486, guid: aa2830fe7f608ff4490f232ef73b0170, type: 3}

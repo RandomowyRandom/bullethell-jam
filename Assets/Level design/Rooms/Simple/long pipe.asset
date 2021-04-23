@@ -17,19 +17,11 @@ MonoBehaviour:
   - _entityID: 1
     _position: {x: 9.02, y: 6.25}
   - _entityID: 3
-    _position: {x: 5.75, y: 5.75}
-  - _entityID: 3
     _position: {x: 5.71, y: 3.6799998}
-  - _entityID: 3
-    _position: {x: 9, y: 3.24}
   - _entityID: 1
     _position: {x: 12.22, y: 3.74}
   - _entityID: 1
     _position: {x: 12.27, y: 5.73}
-  - _entityID: 3
-    _position: {x: 5.75, y: 4.75}
-  - _entityID: 1
-    _position: {x: 12.25, y: 4.75}
   _openRoomDoors: 0200000003000000
   _levelTilemap:
   - {fileID: 11400000, guid: 34e55ce4322c9244a9514d5346dd0146, type: 2}

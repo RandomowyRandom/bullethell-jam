@@ -124,7 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityName: Homeless
-  _maxHealth: 250
+  _isEnemy: 1
+  _maxHealth: 320
   _deathParticles: {fileID: 3563847004644730254, guid: e19742937223c54468c37dccb5734c62, type: 3}
   _splitBulletUp: {fileID: -4848173905228168486, guid: 6542ccdf0272c5c44b85484f54f6b537, type: 3}
   _splitBulletDown: {fileID: -4848173905228168486, guid: 973beb87a678fd64b9becc68b1631f5b, type: 3}
@@ -132,3 +133,4 @@ MonoBehaviour:
   _splitBulletRight: {fileID: -4848173905228168486, guid: 8fc86b54e9025384ab933a6bf931e891, type: 3}
   _inPlayerReverse: {fileID: 6710145235267064405, guid: 15c8d6e63f13f4b46b90cb6c0474bc44, type: 3}
   _inPlayerVelocity: {fileID: 5262203598407892796, guid: 96a8cad430046124c99613472b65c472, type: 3}
+  _deathSound: {fileID: 8300000, guid: 57d9968d4097d3840b267437e871bdc1, type: 3}

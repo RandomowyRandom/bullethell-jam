@@ -211,18 +211,30 @@ public class DungeonGenerator : MonoBehaviour
             case Direction.Top:
                 _borderTilemap.SetTile(new Vector3Int(roomOrigin.x + 8, roomOrigin.y + 9, 0), null);
                 _borderTilemap.SetTile(new Vector3Int(roomOrigin.x + 9, roomOrigin.y + 9, 0), null);
+                
+                _floorTilemap.SetTile(new Vector3Int(roomOrigin.x + 8, roomOrigin.y + 9, 0), _floorTile);
+                _floorTilemap.SetTile(new Vector3Int(roomOrigin.x + 9, roomOrigin.y + 9, 0), _floorTile);
                 break;
             case Direction.Bottom:
                 _borderTilemap.SetTile(new Vector3Int(roomOrigin.x + 8, roomOrigin.y, 0), null);
                 _borderTilemap.SetTile(new Vector3Int(roomOrigin.x + 9, roomOrigin.y, 0), null);
+                
+                _floorTilemap.SetTile(new Vector3Int(roomOrigin.x + 8, roomOrigin.y, 0), _floorTile);
+                _floorTilemap.SetTile(new Vector3Int(roomOrigin.x + 9, roomOrigin.y, 0), _floorTile);
                 break;
             case Direction.Left:
                 _borderTilemap.SetTile(new Vector3Int(roomOrigin.x, roomOrigin.y + 4, 0), null);
                 _borderTilemap.SetTile(new Vector3Int(roomOrigin.x, roomOrigin.y + 5, 0), null);
+                
+                _floorTilemap.SetTile(new Vector3Int(roomOrigin.x, roomOrigin.y + 4, 0), _floorTile);
+                _floorTilemap.SetTile(new Vector3Int(roomOrigin.x, roomOrigin.y + 5, 0), _floorTile);
                 break;
             case Direction.Right:
                 _borderTilemap.SetTile(new Vector3Int(roomOrigin.x + 17, roomOrigin.y + 4, 0), null);
                 _borderTilemap.SetTile(new Vector3Int(roomOrigin.x + 17, roomOrigin.y + 5, 0), null);
+                
+                _floorTilemap.SetTile(new Vector3Int(roomOrigin.x + 17, roomOrigin.y + 4, 0), _floorTile);
+                _floorTilemap.SetTile(new Vector3Int(roomOrigin.x + 17, roomOrigin.y + 5, 0), _floorTile);
                 break;
         }
     }

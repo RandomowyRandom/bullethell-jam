@@ -20,7 +20,7 @@ public class ItemPedestal : Entity
     {
         _itemOnPedestal = item;
         _itemSpriteOnPedestal.sprite = item.ItemSprite;
-        _itemName.SetText(item.name);
+        _itemName.SetText(item.ItemName);
         _itemTooltip.SetText(item.ItemTooltip);
 
         _itemName.sortingOrder = 20;

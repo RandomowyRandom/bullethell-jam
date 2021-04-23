@@ -7,7 +7,6 @@ public class Stats
     [SerializeField] private float _damage;
     [SerializeField] private float _fireRate;
     [SerializeField] private float _range;
-    [SerializeField] private float _drugTolerance;
     [SerializeField] private float _drugEfficiency;
     [SerializeField] private float _bulletSpeed;
 
@@ -33,12 +32,6 @@ public class Stats
     {
         get => _range;
         set => _range = value;
-    }
-
-    public float DrugTolerance
-    {
-        get => _drugTolerance;
-        set => _drugTolerance = value;
     }
 
     public float DrugEfficiency

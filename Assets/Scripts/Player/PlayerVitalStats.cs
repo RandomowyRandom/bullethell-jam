@@ -10,6 +10,7 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerShooter))]
+[RequireComponent(typeof(PlayerStats))]
 [RequireComponent(typeof(Collider2D))]
 public class PlayerVitalStats : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class PlayerVitalStats : MonoBehaviour
     private PlayerMovement _playerMovement;
     private Collider2D _collider2D;
     private PlayerShooter _playerShooter;
+    private PlayerStats _playerStats;
     public static PlayerVitalStats Instance { get; private set; }
     public static event Action<PlayerVitalStats> OnPlayerHealthChanged;
     public static event Action<PlayerVitalStats, PlayerHealthState> OnPlayerHealthStateChanged;
@@ -41,7 +43,7 @@ public class PlayerVitalStats : MonoBehaviour
     public float Health => _health;
     public float MaxHealth => _maxHealth;
     public PlayerHealthState PlayerHealthState => _playerHealthState;
-    private bool IsDead => _health <= 0;
+    private bool IsDead => _health <= 0 || _vitaminInBlood >= 90 || _ketamineInBlood >= 90;
     
     public float KetamineInBlood
     {
@@ -71,6 +73,7 @@ public class PlayerVitalStats : MonoBehaviour
         _playerMovement = GetComponent<PlayerMovement>();
         _collider2D = GetComponent<Collider2D>();
         _playerShooter = GetComponent<PlayerShooter>();
+        _playerStats = GetComponent<PlayerStats>();
         
         // sub to events
         _ketamineTimer.OnDone += () => SetPlayerHealthState(PlayerHealthState.Normal);
@@ -88,7 +91,7 @@ public class PlayerVitalStats : MonoBehaviour
             SceneManager.LoadScene("Sewer_1");
         
         // read input for using Ketamine and Vitamin
-        if(_playerHealthState != PlayerHealthState.Normal && IsDead) return;
+        if(_playerHealthState != PlayerHealthState.Normal) return;
         
         if (Input.GetKeyDown(KeyCode.E) && _playerInventory.KetamineAmount > 0)
         {
@@ -142,29 +145,35 @@ public class PlayerVitalStats : MonoBehaviour
                 Time.timeScale = 1f;
                 _postProcessing.profile = _normalVolume;
                 break;
+            
             case PlayerHealthState.Ketamine:
                 _postProcessing.profile = _ketamineVolume;
 
-                _ketamineInBlood += 10;
-                _vitaminInBlood -= 10;
-                Time.timeScale = 1.5f;
+                _ketamineInBlood += 15;
+                _vitaminInBlood -= 15;
+                Time.timeScale = Mathf.Clamp(1.5f - _playerStats.Stats.DrugEfficiency, 1.1f, 1.5f);
                 AudioSource.PlayClipAtPoint(_drugUse, Extensions.MainCamera.transform.parent.position);
                 
                 _ketamineTimer.Reset();
                 break;
+            
             case PlayerHealthState.Vitamin:
                 _postProcessing.profile = _vitaminVolume;
                 
-                _ketamineInBlood -= 10;
-                _vitaminInBlood += 10;
-                Time.timeScale = .5f;
+                _ketamineInBlood -= 15;
+                _vitaminInBlood += 15;
+                Time.timeScale = Mathf.Clamp(.6f - _playerStats.Stats.DrugEfficiency/2, .3f, .6f);
                 AudioSource.PlayClipAtPoint(_drugUse, Extensions.MainCamera.transform.parent.position);
                 
                 _vitaminTimer.Reset();
                 break;
+            
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
+        
+        if(_vitaminInBlood >= 90 || _ketamineInBlood >= 90)
+            Death();
     }
     private void Death()
     {
@@ -172,8 +181,14 @@ public class PlayerVitalStats : MonoBehaviour
         _playerMovement.enabled = false;
         _collider2D.enabled = false;
         _playerShooter.enabled = false;
+        Time.timeScale = 1f;
+        _playerInventory.Items.Clear();
         
         GameObject.Find("DeadText").GetComponent<TextMeshProUGUI>().enabled = true;
+    }
 
+    private void OnApplicationQuit()
+    {
+        _playerInventory.Items.Clear();
     }
 }

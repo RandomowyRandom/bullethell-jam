@@ -6,11 +6,13 @@ public abstract class Entity : MonoBehaviour
     public static event Action<Entity> OnEntityDied;
     
     [SerializeField] private string _entityName;
+    [SerializeField] private bool _isEnemy;
     [SerializeField] private float _maxHealth;
     [SerializeField] private ParticleSystem _deathParticles;
     private float _health;
 
     public abstract int EntityID { get; }
+    public bool IsEnemy => _isEnemy;
 
     private void Awake()
     {

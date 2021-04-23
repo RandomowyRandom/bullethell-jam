@@ -2,10 +2,18 @@
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] private Sprite _lockedSprite;
+    [SerializeField] private Sprite _unlockedSprite;
     private Vector2 _doorDestination;
     private bool _isLocked;
     private RoomManager _roomManager;
-    
+    private SpriteRenderer _spriteRenderer;
+
+    private void Start()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private RoomManager RoomManager
     {
         get
@@ -37,5 +45,6 @@ public class Door : MonoBehaviour
     public void SetLock(bool value)
     {
         _isLocked = value;
+        _spriteRenderer.sprite = value ? _lockedSprite : _unlockedSprite;
     }
 }

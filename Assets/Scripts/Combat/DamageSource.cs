@@ -4,7 +4,7 @@ public class DamageSource : MonoBehaviour
 {
     [SerializeField] private bool _destroyOnCollision;
     
-    private float _damage = 5;
+    private float _damage = 10;
 
     public float Damage
     {
