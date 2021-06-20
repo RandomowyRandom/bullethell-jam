@@ -1,2 +1,2 @@
 # bullethell-jam
- Yes.
+A submission for BulletHell jam.
